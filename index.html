@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khaws Tswv Yim Business</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        #ideaInput {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 80px;
+            background: rgba(255,255,255,0.9);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        #ideaInput:focus {
+            outline: none;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1), 0 0 0 3px rgba(255,255,255,0.3);
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            font-size: 14px;
+            padding: 8px 15px;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .ideas-section {
+            margin-top: 30px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .ideas-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .idea-card {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .idea-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .idea-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .idea-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .idea-date {
+            font-size: 12px;
+            color: #666;
+            background: rgba(255,255,255,0.7);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .idea-content {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            word-wrap: break-word;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .stats {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 10px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .export-section {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+        }
+
+        .no-ideas {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 40px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 15px;
+            border: 2px dashed #ccc;
+        }
+
+        @media (max-width: 600px) {
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💡 Khaws Tswv Yim Business</h1>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <textarea 
+                    id="ideaInput" 
+                    placeholder="Sau koj cov tswv yim business ntawm no... 
+Piv txwv: Hnub no kuv pom ib lub lag luam zoo - muag khoom online rau cov neeg Hmoob..."
+                    rows="4"
+                ></textarea>
+                <button class="btn btn-primary" onclick="saveIdea()">
+                    💾 Khaws
+                </button>
+            </div>
+        </div>
+
+        <div class="stats" id="stats">
+            📊 Koj muaj <strong>0</strong> lub tswv yim
+        </div>
+
+        <div class="ideas-section">
+            <h2 class="section-title">📝 Koj Cov Tswv Yim</h2>
+            <div class="ideas-list" id="ideasList">
+                <div class="no-ideas">
+                    Tseem tsis muaj tswv yim... Sau thawj lub tswv yim!
+                </div>
+            </div>
+        </div>
+
+        <div class="export-section">
+            <button class="btn btn-primary" onclick="exportIdeas()">
+                📥 Download Cov Tswv Yim (JSON)
+            </button>
+            <button class="btn btn-danger" onclick="clearAllIdeas()" style="margin-left: 10px;">
+                🗑️ Lwv Tag Nrho
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Khaws tswv yim tshiab
+        function saveIdea() {
+            const input = document.getElementById('ideaInput');
+            const ideaText = input.value.trim();
+            
+            if (!ideaText) {
+                alert('Thov sau koj lub tswv yim ua ntej!');
+                return;
+            }
+
+            // Tau cov tswv yim qub los yog tsim array tshiab
+            let ideas = JSON.parse(localStorage.getItem('businessIdeas')) || [];
+            
+            // Ntxiv tswv yim tshiab
+            const newIdea = {
+                id: Date.now(),
+                content: ideaText,
+                date: new Date().toLocaleDateString('lo-LA', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }),
+                timestamp: new Date().toISOString()
+            };
+            
+            ideas.unshift(newIdea); // Ntxiv rau saum toj
+            
+            // Khaws rov qab rau localStorage
+            localStorage.setItem('businessIdeas', JSON.stringify(ideas));
+            
+            // Clear input
+            input.value = '';
+            
+            // Refresh display
+            displayIdeas();
+            
+            // Success message
+            showSuccessMessage();
+        }
+
+        // Qhia success message
+        function showSuccessMessage() {
+            const originalBtn = document.querySelector('.btn-primary');
+            const originalText = originalBtn.innerHTML;
+            originalBtn.innerHTML = '✅ Khaws Lawm!';
+            originalBtn.style.background = 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)';
+            
+            setTimeout(() => {
+                originalBtn.innerHTML = originalText;
+                originalBtn.style.background = 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)';
+            }, 1500);
+        }
+
+        // Qhia cov tswv yim
+        function displayIdeas() {
+            const ideas = JSON.parse(localStorage.getItem('businessIdeas')) || [];
+            const ideasList = document.getElementById('ideasList');
+            const stats = document.getElementById('stats');
+            
+            // Update stats
+            stats.innerHTML = `📊 Koj muaj <strong>${ideas.length}</strong> lub tswv yim`;
+            
+            if (ideas.length === 0) {
+                ideasList.innerHTML = `
+                    <div class="no-ideas">
+                        Tseem tsis muaj tswv yim... Sau thawj lub tswv yim!
+                    </div>
+                `;
+                return;
+            }
+
+            ideasList.innerHTML = ideas.map(idea => `
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <div class="idea-date">📅 ${idea.date}</div>
+                        <button class="btn btn-danger delete-btn" onclick="deleteIdea(${idea.id})">
+                            🗑️
+                        </button>
+                    </div>
+                    <div class="idea-content">${escapeHtml(idea.content)}</div>
+                </div>
+            `).join('');
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Lwv ib lub tswv yim
+        function deleteIdea(ideaId) {
+            if (confirm('Koj puas xav lwv lub tswv yim no tiag?')) {
+                let ideas = JSON.parse(localStorage.getItem('businessIdeas')) || [];
+                ideas = ideas.filter(idea => idea.id !== ideaId);
+                localStorage.setItem('businessIdeas', JSON.stringify(ideas));
+                displayIdeas();
+            }
+        }
+
+        // Lwv tag nrho
+        function clearAllIdeas() {
+            if (confirm('Koj puas xav lwv tag nrho cov tswv yim tiag? Qhov no yuav tsis rov qab tau!')) {
+                localStorage.removeItem('businessIdeas');
+                displayIdeas();
+            }
+        }
+
+        // Export cov tswv yim
+        function exportIdeas() {
+            const ideas = JSON.parse(localStorage.getItem('businessIdeas')) || [];
+            
+            if (ideas.length === 0) {
+                alert('Tsis muaj tswv yim rau export!');
+                return;
+            }
+
+            const dataStr = JSON.stringify(ideas, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `business-ideas-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+        }
+
+        // Enter key support
+        document.getElementById('ideaInput').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                saveIdea();
+            }
+        });
+
+        // Load ideas when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            displayIdeas();
+        });
+
+        // Auto-save draft (optional)
+        let autoSaveTimer;
+        document.getElementById('ideaInput').addEventListener('input', function() {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(() => {
+                const draft = this.value.trim();
+                if (draft) {
+                    localStorage.setItem('ideaDraft', draft);
+                } else {
+                    localStorage.removeItem('ideaDraft');
+                }
+            }, 1000);
+        });
+
+        // Load draft on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const draft = localStorage.getItem('ideaDraft');
+            if (draft) {
+                document.getElementById('ideaInput').value = draft;
+            }
+        });
+    </script>
+</body>
+</html>
