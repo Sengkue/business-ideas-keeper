@@ -158,6 +158,8 @@
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .idea-date {
@@ -177,9 +179,9 @@
         }
 
         .delete-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
         }
 
         .stats {
@@ -210,18 +212,148 @@
             border: 2px dashed #ccc;
         }
 
-        @media (max-width: 600px) {
-            .input-group {
-                flex-direction: column;
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
             }
             
             .container {
-                padding: 20px;
-                margin: 10px;
+                padding: 15px;
+                margin: 0;
+                border-radius: 15px;
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+            
+            .input-section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .input-group {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            #ideaInput {
+                min-height: 100px;
+                font-size: 16px;
+                padding: 12px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 16px;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .btn-primary {
+                min-height: 50px;
+            }
+            
+            .idea-card {
+                padding: 15px;
+                margin-bottom: 10px;
+            }
+            
+            .idea-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .delete-btn {
+                position: static;
+                align-self: flex-end;
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+            
+            .idea-date {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+            
+            .idea-content {
+                font-size: 15px;
+                line-height: 1.5;
+                margin-top: 10px;
+            }
+            
+            .stats {
+                padding: 12px;
+                font-size: 16px;
+                margin: 15px 0;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+                margin-bottom: 15px;
+            }
+            
+            .export-section {
+                padding: 15px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .export-section .btn {
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 15px;
+            }
+            
+            .input-section {
+                padding: 15px;
+            }
+            
+            #ideaInput {
+                font-size: 16px; /* Prevents zoom on iOS */
+                min-height: 80px;
+            }
+            
+            .idea-card {
+                padding: 12px;
+            }
+            
+            .idea-content {
+                font-size: 14px;
+            }
+            
+            .btn {
+                padding: 10px 15px;
+                font-size: 15px;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .btn {
+                min-height: 44px; /* Apple's minimum touch target */
+                touch-action: manipulation;
+            }
+            
+            .delete-btn {
+                min-height: 40px;
+                min-width: 40px;
+            }
+            
+            #ideaInput {
+                touch-action: manipulation;
             }
         }
     </style>
@@ -343,7 +475,7 @@
                 <div class="idea-card">
                     <div class="idea-header">
                         <div class="idea-date">📅 ${idea.date}</div>
-                        <button class="btn btn-danger delete-btn" onclick="deleteIdea(${idea.id})">
+                        <button class="btn btn-danger delete-btn" onclick="deleteIdea(${idea.id})" title="ລຶບແນວຄິດນີ້">
                             🗑️
                         </button>
                     </div>
@@ -405,6 +537,8 @@
         // Load ideas when page loads
         document.addEventListener('DOMContentLoaded', function() {
             displayIdeas();
+            setupMobileKeyboard();
+            addTouchFeedback();
         });
 
         // Auto-save draft (optional)
@@ -427,6 +561,9 @@
             if (draft) {
                 document.getElementById('ideaInput').value = draft;
             }
+            displayIdeas();
+            setupMobileKeyboard();
+            addTouchFeedback();
         });
     </script>
 </body>
