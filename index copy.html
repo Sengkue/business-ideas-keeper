@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ເກັບຮັກສາແນວຄິດທຸລະກິດ</title>
+    <title>Khaws Tswv Yim Business</title>
     <style>
         * {
             margin: 0;
@@ -228,41 +228,41 @@
 </head>
 <body>
     <div class="container">
-        <h1>💡 ເກັບຮັກສາແນວຄິດທຸລະກິດ</h1>
+        <h1>💡 Khaws Tswv Yim Business</h1>
         
         <div class="input-section">
             <div class="input-group">
                 <textarea 
                     id="ideaInput" 
-                    placeholder="ຂຽນແນວຄິດທຸລະກິດຂອງທ່ານໃສ່ບ່ອນນີ້...
-ຕົວຢ່າງ: ມື້ນີ້ຂ້ອຍເຫັນທຸລະກິດໜ້າສົນໃຈ - ຂາຍເສື້ອຜ້າອອນລາຍໃຫ້ຄົນລາວ..."
+                    placeholder="Sau koj cov tswv yim business ntawm no... 
+Piv txwv: Hnub no kuv pom ib lub lag luam zoo - muag khoom online rau cov neeg Hmoob..."
                     rows="4"
                 ></textarea>
                 <button class="btn btn-primary" onclick="saveIdea()">
-                    💾 ບັນທຶກ
+                    💾 Khaws
                 </button>
             </div>
         </div>
 
         <div class="stats" id="stats">
-            📊 ທ່ານມີ <strong>0</strong> ແນວຄິດ
+            📊 Koj muaj <strong>0</strong> lub tswv yim
         </div>
 
         <div class="ideas-section">
-            <h2 class="section-title">📝 ແນວຄິດຂອງທ່ານ</h2>
+            <h2 class="section-title">📝 Koj Cov Tswv Yim</h2>
             <div class="ideas-list" id="ideasList">
                 <div class="no-ideas">
-                    ຍັງບໍ່ມີແນວຄິດ... ຂຽນແນວຄິດທຳອິດກັນເດີ!
+                    Tseem tsis muaj tswv yim... Sau thawj lub tswv yim!
                 </div>
             </div>
         </div>
 
         <div class="export-section">
             <button class="btn btn-primary" onclick="exportIdeas()">
-                📥 ດາວໂຫຼດແນວຄິດ (JSON)
+                📥 Download Cov Tswv Yim (JSON)
             </button>
             <button class="btn btn-danger" onclick="clearAllIdeas()" style="margin-left: 10px;">
-                🗑️ ລຶບທັງໝົດ
+                🗑️ Lwv Tag Nrho
             </button>
         </div>
     </div>
@@ -274,7 +274,7 @@
             const ideaText = input.value.trim();
             
             if (!ideaText) {
-                alert('ກະລຸນາຂຽນແນວຄິດຂອງທ່ານກ່ອນ!');
+                alert('Thov sau koj lub tswv yim ua ntej!');
                 return;
             }
 
@@ -312,7 +312,7 @@
         function showSuccessMessage() {
             const originalBtn = document.querySelector('.btn-primary');
             const originalText = originalBtn.innerHTML;
-            originalBtn.innerHTML = '✅ ບັນທຶກແລ້ວ!';
+            originalBtn.innerHTML = '✅ Khaws Lawm!';
             originalBtn.style.background = 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)';
             
             setTimeout(() => {
@@ -328,12 +328,12 @@
             const stats = document.getElementById('stats');
             
             // Update stats
-            stats.innerHTML = `📊 ທ່ານມີ <strong>${ideas.length}</strong> ແນວຄິດ`;
+            stats.innerHTML = `📊 Koj muaj <strong>${ideas.length}</strong> lub tswv yim`;
             
             if (ideas.length === 0) {
                 ideasList.innerHTML = `
                     <div class="no-ideas">
-                        ຍັງບໍ່ມີແນວຄິດ... ຂຽນແນວຄິດທຳອິດກັນເດີ!
+                        Tseem tsis muaj tswv yim... Sau thawj lub tswv yim!
                     </div>
                 `;
                 return;
@@ -361,7 +361,7 @@
 
         // Lwv ib lub tswv yim
         function deleteIdea(ideaId) {
-            if (confirm('ທ່ານຕ້ອງການລຶບແນວຄິດນີ້ແທ້ບໍ?')) {
+            if (confirm('Koj puas xav lwv lub tswv yim no tiag?')) {
                 let ideas = JSON.parse(localStorage.getItem('businessIdeas')) || [];
                 ideas = ideas.filter(idea => idea.id !== ideaId);
                 localStorage.setItem('businessIdeas', JSON.stringify(ideas));
@@ -371,7 +371,7 @@
 
         // Lwv tag nrho
         function clearAllIdeas() {
-            if (confirm('ທ່ານຕ້ອງການລຶບແນວຄິດທັງໝົດແທ້ບໍ? ການກະທຳນີ້ບໍ່ສາມາດຍົກເລີກໄດ້!')) {
+            if (confirm('Koj puas xav lwv tag nrho cov tswv yim tiag? Qhov no yuav tsis rov qab tau!')) {
                 localStorage.removeItem('businessIdeas');
                 displayIdeas();
             }
@@ -382,7 +382,7 @@
             const ideas = JSON.parse(localStorage.getItem('businessIdeas')) || [];
             
             if (ideas.length === 0) {
-                alert('ບໍ່ມີແນວຄິດສຳລັບ export!');
+                alert('Tsis muaj tswv yim rau export!');
                 return;
             }
 
